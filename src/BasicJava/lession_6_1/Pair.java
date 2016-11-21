@@ -1,6 +1,8 @@
 package BasicJava.lession_6_1;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Generic-класс Pair похож на Optional, но содержит пару элементов разных типов
@@ -122,6 +124,17 @@ class Pair <T1, T2> {
      */
     public boolean secondIsPresent() {
         return second != null;
+    }
+
+    /**
+     * If a values is present, invoke the specified consumers with the values,
+     * otherwise do nothing.
+     *
+     * @param consumer block to be executed if a value is present
+     */
+    public void ifPresent(BiConsumer<? super T1, ? super T2> consumer) {
+        if ((first != null) & (second != null))
+            consumer.accept(first, second);
     }
 
     /**
