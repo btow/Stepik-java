@@ -1,6 +1,7 @@
 package BasicJava.lession_6_1;
 
 import javax.lang.model.element.Element;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.*;
 
 /**
@@ -49,6 +50,9 @@ public class Main {
                 & resultContainsAllUnicalElementsOfFirstAndSecondSets
                 & resultContainsSymmetricDifferenceOfFirstAndSecondSets;
 
+        if (!stopFlag) {
+            result = null;
+        }
         return result;
 
     }
