@@ -1,6 +1,6 @@
 package BasicJava.lesson_6_4_1;
 
-import java.math.BigInteger;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -11,16 +11,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Stream<BigInteger> stream = pseudoRandomStream(13);
-        stream.map((bI) -> bI.toString().concat(" ")).limit(10).forEach(System.out::print);
+        IntStream stream = pseudoRandomStream(13);
+        stream.limit(10)
+              .forEach(System.out::print);
 
     }
 
-    private static Stream<BigInteger> pseudoRandomStream(int i) {
+    /**
+     *  Алгоритм генерации чисел следующий:
+     *  1. Берется какое-то начальное неотрицательное число (оно передаётся в метод).
+     *  2. Первый элемент последовательности устанавливается равным этому числу.
+     *  3. Следующие элементы вычисляются по рекуррентной формуле Rn+1=mid(R2n),
+     *  где mid — это функция, выделяющая второй, третий и четвертый разряд переданного числа.
+     *  Например, mid(123456)=345.
+     * @param i - начальное неотрицательное число;
+     * @return
+     */
+    private static IntStream pseudoRandomStream(int seed) {
 
-        Stream<BigInteger> result = Stream.iterate(i,i -> i * i, )
-
-        return result;
+        return IntStream.iterate(seed, n -> {
+            String mr = String.valueOf(n * n);
+            int endIndex    = (mr.length() < 1) ? 0 : mr.length() - 1,
+                beginIndex  = (mr.length() < 4) ? 0 : endIndex - 3;
+            return (endIndex - beginIndex == 0) ? 0 : Integer.parseInt(mr.substring(beginIndex, endIndex),10);
+        });
 
     }
 
